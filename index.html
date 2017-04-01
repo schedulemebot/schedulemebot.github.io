@@ -82,56 +82,9 @@
 });
   }
 </script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <!-- Firebase -->
-  <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
-  <!-- Firebase Simple Login -->
-  <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
-  <script src="js/index.js"></script>
-  <script>
-  function whichButton(){
-      
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        var storageRef = firebase.storage().ref();
-        console.log("b");
-      // The signed-in user info.
-        var user = result.user;
-        readDataFromFBase();
-      
-    });
-  
-  }
-function readDataFromFBase(){
-    var database = firebase.database();/*
-    var getBusinessData = function(bnameString) {
-    var database = firebase.database();
-    return database.ref(bnameString + "/").once('value').then(function(snapshot) {
-      currentBusiness = snapshot.val();
-      console.log(currentBusiness);
-    });
-}
-Seen by Patrick Li at 10:22am
-
-Type a message, */
-    var json = function() {
-        var database = firebase.database();
-        return database.ref().once('value').then(function(snapshot) {
-
-        });
-    }
-    console.log("here");
-    console.log(json);
-}
-  </script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <!-- Firebase -->
-  <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
-  <!-- Firebase Simple Login -->
-  <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
-  <script src="js/index.js"></script>
-
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="authenticate()">Hello</button>
 </body>
 </html>
