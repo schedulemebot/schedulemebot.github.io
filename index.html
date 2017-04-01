@@ -17,25 +17,12 @@
     messagingSenderId: "536379458427"
   };
   firebase.initializeApp(config);
+  var database = firebase.database();
   
-  var getJSON = function() {
-    var database = firebase.database();
-    return database.ref().once('value').then(function(snapshot) {
-
-    });
-  }
-  
-  var chk = function(id) {
-    console.log("HELLO");
-    var firebaseDB = getJSON();
-    for(i = 0; i < firebaseDB.length; i++) {
-      console.log(firebaseDB[i]);
-    }
+  function trimString (str) {
+    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
   }
 
-  chk("h");
-  console.log("running^");
-  
   function authenticate() {
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
@@ -46,10 +33,30 @@
     firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
-      console.log(token);
+      // console.log(token);
       // The signed-in user info.
       var user = result.user;
-      window.location.href = "https://schedulemebot.github.io/landing.html"
+      //console.log(user.email);
+      var shouldGoToRegister = true;
+      database.ref().once('value').then(function(snapshot) {
+        var firebaseDB = JSON.parse(JSON.stringify(snapshot));
+        //console.log(JSON.stringify(firebaseDB));
+        for (var key in firebaseDB) {
+          // console.log("Key %s", key);
+          var fullBusiness = firebaseDB[key];
+          var businessEmail = trimString(fullBusiness["emailOfCalendar"]);
+          console.log(user.email);
+          console.log(businessEmail);
+          if(user.email == businessEmail) {
+            window.location.href = "/landing.html";
+            shouldGoToRegister = false;
+            console.log("ALSKJDHALSKJDH");
+          }
+        }
+        if(shouldGoToRegister === true) {
+          window.location.href = "/register.html";
+        }
+    });
     // ...
   }).catch(function(error) {
     // Handle Errors here.
@@ -61,6 +68,7 @@
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
     // ...
+    
   });
 }
 </script>
