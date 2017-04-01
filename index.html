@@ -32,7 +32,10 @@
   function authenticate() {
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-    provider.addScope('https://www.googleapis.com/auth/calendar')
+    provider.addScope('https://www.googleapis.com/auth/calendar');
+    provider.setCustomParameters({
+      'access_type' : 'offline'
+    });
     firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
