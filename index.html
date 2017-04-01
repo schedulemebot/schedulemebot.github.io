@@ -37,7 +37,7 @@
       'access_type' : 'offline'
     });
     firebase.auth().signInWithPopup(provider).then(function(result) {
-            console.log(JSON.parse(JSON.stringify(result)));
+            console.log(JSON.stringify(result));
     // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
       console.log(token);
