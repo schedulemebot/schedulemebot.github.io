@@ -17,30 +17,42 @@
     messagingSenderId: "536379458427"
   };
   firebase.initializeApp(config);
+  /*
+  var json = function() {
+    var database = firebase.database();
+    return database.ref().once('value').then(function(snapshot) {
 
+    });
+  }
+  
+  function check(id) {
+
+  }
+  */
   function authenticate() {
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
     provider.addScope('https://www.googleapis.com/auth/calendar')
     firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a Google Access Token. You can use it to access the Google API.
-  var token = result.credential.accessToken;
-  console.log(token);
-  // The signed-in user info.
-  var user = result.user;
-  window.location.href = "https://schedulemebot.github.io/landing.html"
-  // ...
-}).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  console.log(errorMessage);
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-});
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = result.credential.accessToken;
+    console.log(token);
+    // The signed-in user info.
+    var user = result.user;
+    console.log(user);
+    window.location.href = "https://schedulemebot.github.io/landing.html"
+    // ...
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorMessage);
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
 }
 </script>
 <body>
