@@ -22,13 +22,93 @@
       <input type="password" placeholder="password"/>
       <button>login</button>
       <p class="message">Not registered? <a href="#">Create an account</a></p>
-      <p class="message"><a herf ="#">Forgot your Passowrd</a></p>
+      <p class="message"><a herf ="#">Forgot your Passowrd?</a></p>
+      <button style = "background: url(https://i.stack.imgur.com/JkSed.png)" id = "google-plus" onclick="whichButton()"></button>
     </form>
   </div>
 </div>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<!-- <div class="google-plus-page"> -->
+  <!-- <div class="space-for-button"> -->
+    <!-- <form class="register-form">
+      <input type="text" placeholder="name"/>
+      <input type="password" placeholder="password"/>
+      <input type="text" placeholder="email address"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <form class="login-form">
+      <input type="text" placeholder="username or email"/>
+      <input type="password" placeholder="password"/>
+      <button>login</button>
+      <p class="message">Not registered? <a href="#">Create an account</a></p>
+      <p class="message"><a herf ="#">Forgot your Passowrd?</a></p>
+    </form> -->
+  <!-- </div> -->
+<!-- </div> -->
 
-    <script src="js/index.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+   apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
+    authDomain: "scheduleme-f5d58.firebaseapp.com",
+    databaseURL: "https://scheduleme-f5d58.firebaseio.com",
+    projectId: "scheduleme-f5d58",
+    storageBucket: "scheduleme-f5d58.appspot.com",
+    messagingSenderId: "536379458427"
+  };
+  firebase.initializeApp(config);
+  </script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+  <!-- Firebase Simple Login -->
+  <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
+  <script src="js/index.js"></script>
+  <script>
+  function whichButton(){
+      
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        var storageRef = firebase.storage().ref();
+        console.log("b");
+      // The signed-in user info.
+        var user = result.user;
+        readDataFromFBase();
+      
+    });
+  
+  }
+function readDataFromFBase(){
+    var database = firebase.database();/*
+    var getBusinessData = function(bnameString) {
+    var database = firebase.database();
+    return database.ref(bnameString + "/").once('value').then(function(snapshot) {
+      currentBusiness = snapshot.val();
+      console.log(currentBusiness);
+    });
+}
+Seen by Patrick Li at 10:22am
+
+Type a message, */
+    var json = function() {
+        var database = firebase.database();
+        return database.ref().once('value').then(function(snapshot) {
+
+        });
+    }
+    console.log("here");
+    console.log(json);
+}
+  </script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+  <!-- Firebase Simple Login -->
+  <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
+  <script src="js/index.js"></script>
 
 </body>
 </html>
