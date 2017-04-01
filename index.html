@@ -23,7 +23,7 @@
       <button>login</button>
       <p class="message">Not registered? <a href="#">Create an account</a></p>
       <p class="message"><a herf ="#">Forgot your Passowrd?</a></p>
-      <button style = "background: url(https://i.stack.imgur.com/JkSed.png)" id = "google-plus" onclick="whichButton()"></button>
+      <button style = "background: url(https://i.stack.imgur.com/JkSed.png)" id = "google-plus" onclick="authenticate()"></button>
     </form>
   </div>
 </div>
@@ -50,7 +50,7 @@
 <script>
   // Initialize Firebase
   var config = {
-   apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
+    apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
     authDomain: "scheduleme-f5d58.firebaseapp.com",
     databaseURL: "https://scheduleme-f5d58.firebaseio.com",
     projectId: "scheduleme-f5d58",
@@ -58,7 +58,30 @@
     messagingSenderId: "536379458427"
   };
   firebase.initializeApp(config);
-  </script>
+
+  function authenticate() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  console.log(token);
+  // The signed-in user info.
+  var user = result.user;
+  // ...
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log(errorMessage);
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+  }
+</script>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
   <!-- Firebase -->
   <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
