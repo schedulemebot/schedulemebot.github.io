@@ -5,6 +5,43 @@
   <title>Schedule Me</title>
       <link rel="stylesheet" href="css/style.css">
 </head>
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
+    authDomain: "scheduleme-f5d58.firebaseapp.com",
+    databaseURL: "https://scheduleme-f5d58.firebaseio.com",
+    projectId: "scheduleme-f5d58",
+    storageBucket: "scheduleme-f5d58.appspot.com",
+    messagingSenderId: "536379458427"
+  };
+  firebase.initializeApp(config);
+
+  function authenticate() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  console.log(token);
+  // The signed-in user info.
+  var user = result.user;
+  window.location.href = "https://schedulemebot.github.io/landing.html"
+  // ...
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log(errorMessage);
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+  }
+</script>
 <body>
   <div style = "padding: 4% 0 0"></div>
   <h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0">Schedule Me</h1>
@@ -46,46 +83,4 @@
   <!-- </div> -->
 <!-- </div> -->
 
-<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
-    authDomain: "scheduleme-f5d58.firebaseapp.com",
-    databaseURL: "https://scheduleme-f5d58.firebaseio.com",
-    projectId: "scheduleme-f5d58",
-    storageBucket: "scheduleme-f5d58.appspot.com",
-    messagingSenderId: "536379458427"
-  };
-  firebase.initializeApp(config);
-
-  function authenticate() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/plus.login');
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a Google Access Token. You can use it to access the Google API.
-  var token = result.credential.accessToken;
-  console.log(token);
-  // The signed-in user info.
-  var user = result.user;
-  window.location.href = "https://schedulemebot.github.io/landing.html"
-  // ...
-}).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  console.log(errorMessage);
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-});
-  }
-</script>
-  <title>Document</title>
-</head>
-<body>
-  <button onclick="authenticate()">Hello</button>
-</body>
 </html>
