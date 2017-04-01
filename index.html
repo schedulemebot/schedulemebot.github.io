@@ -17,18 +17,25 @@
     messagingSenderId: "536379458427"
   };
   firebase.initializeApp(config);
-  /*
-  var json = function() {
+  
+  var getJSON = function() {
     var database = firebase.database();
     return database.ref().once('value').then(function(snapshot) {
 
     });
   }
   
-  function check(id) {
-
+  var chk = function(id) {
+    console.log("HELLO");
+    var firebaseDB = getJSON();
+    for(i = 0; i < firebaseDB.length; i++) {
+      console.log(firebaseDB[i]);
+    }
   }
-  */
+
+  chk("h");
+  console.log("running^");
+  
   function authenticate() {
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
@@ -37,14 +44,11 @@
       'access_type' : 'offline'
     });
     firebase.auth().signInWithPopup(provider).then(function(result) {
-            console.log(JSON.stringify(result));
     // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
       console.log(token);
       // The signed-in user info.
       var user = result.user;
-      console.log(user);
-      console.log("above");
       window.location.href = "https://schedulemebot.github.io/landing.html"
     // ...
   }).catch(function(error) {
