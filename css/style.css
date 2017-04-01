@@ -51,7 +51,7 @@
   cursor: pointer;
 }
 .form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
+  background: #34495e;
 }
 .form .message {
   margin: 15px 0 0;
@@ -100,10 +100,10 @@
 }
 body {
   background: #34495e; /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #34495e, #8DC26F);
-  background: -moz-linear-gradient(right, #34495e, #8DC26F);
-  background: -o-linear-gradient(right, #34495e, #8DC26F);
-  background: linear-gradient(to left, #34495e, #8DC26F);
+  background: -webkit-linear-gradient(right, #34495e, #016687);
+  background: -moz-linear-gradient(right, #34495e, #016687);
+  background: -o-linear-gradient(right, #34495e, #016687);
+  background: linear-gradient(to left, #34495e, #016687);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
