@@ -26,6 +26,47 @@
     <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css' />
     
 </head>
+<script>
+var config = {
+    apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
+    authDomain: "scheduleme-f5d58.firebaseapp.com",
+    databaseURL: "https://scheduleme-f5d58.firebaseio.com",
+    projectId: "scheduleme-f5d58",
+    storageBucket: "scheduleme-f5d58.appspot.com",
+    messagingSenderId: "536379458427"
+};
+firebase.initializeApp(config);
+var database = firebase.database();
+function update() {
+    var businessName_ = window.location.hash.substring(1);
+    var accessKey_ = "";
+    var calId_ = "";
+    var fullName_ = document.getElementById("fullName").value.toLowerCase();
+    var businessEmail = document.getElementById("email").value.toLowerCase();
+    var adddress_ = document.getElementById("address").value.toLowerCase();
+    var number = document.getElementById("phone").value.toLowerCase();
+    var maxLen = document.getElementById("time").value.toLowerCase();
+    function readData() {
+        var database = firebase.database();
+        return database.ref(String(businessName_) + "/").once('value').then(function(snapshot){
+            var key = snapshot.val().accessKey;
+            accessKey_ = key;
+            calId_ = snapshot.val().calendarId;
+        });
+    }
+    readData();
+    database.ref(String(businessName_) + "/").set({
+        accessKey: accessKey_,
+        businessName: businessName_, 
+        userName: fullName_,
+        emailOfCalendar: businessEmail,
+        address: address_,
+        phone: number,
+        calendarId: calId_,
+        maxLength: maxLen
+    });
+}
+</script>
 <body>
 
  <div class="navbar navbar-inverse set-radius-zero" >
@@ -56,8 +97,7 @@
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
                             <li><a href="index.html" >HOME</a></li>
-                           
-                            <li><a href="about.html" class="menu-top-active">EDIT BASIC INFO</a></li>
+                            <li><a href="editBasicInfo.html" class="menu-top-active">EDIT BASIC INFO</a></li>
                              <li><a href="gallery.html" >EMPLOYEES AND TASKS</a></li>
                              <li><a href="features.html">LOGOUT</a></li>
                         </ul>
@@ -81,7 +121,7 @@
 
             <!-- <p class="message">Does your business have multiple employees who need to make sepearte appointments?</p> -->
 <!--             <div style = "padding: 7% 0 0"></div>
- -->            <button type="button" style = "float: right" onclick="">Update</button>
+ -->            <button type="button" style = "float: right" onclick="update()">Update</button>
                 <div style = "padding: 12% 0 0"></div>
             <!-- <button  type="button" style = "float: right" onclick="createBizWithEmp()">Next</button>
             <div style = "padding: 12% 0 0"></div> -->
