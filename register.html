@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Register Your Business</title>
-      <link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8">
+	<title>Register Your Business</title>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
- <div style = "padding: 4% 0 0"></div>
-  <h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0">Register</h1>
- <div style = "padding: 2% 0 0"></div>
- <div class = "form2">
- 	<form class = "login-form">
- 	  <input type="text" placeholder="Name of Business"/>
-      <input type="text" placeholder="Contact Email"/>
-      <input type="text" placeholder="Phone Number"/>
-	  <input type="text" placeholder="Business Address"/>
-	  <p class="message">Does your business have multiple employees who need to make sepearte appointments?</p>
-	  <div style = "padding: 7% 0 0"></div>
-	  <button style = "background: #d82f35; float: left">No</button>
-	  <button  style = "float: right">Yes</button>
-	  <div style = "padding: 12% 0 0"></div>
-
-	</form>
-
+	<div style = "padding: 4% 0 0"></div>
+	<h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0">Register</h1>
+	<div style = "padding: 2% 0 0"></div>
+	<div class = "form2">
+		<form class = "login-form">
+			<input type="text" placeholder="Name of Business" id="bizName"/>
+			<input type="text" placeholder="Contact Email" id="email"/>
+			<input type="text" placeholder="Phone Number" id="phone"/>
+			<input type="text" placeholder="Business Address" id="address"/>
+			<p class="message">Does your business have multiple employees who need to make sepearte appointments?</p>
+			<div style = "padding: 7% 0 0"></div>
+			<button style = "background: #d82f35; float: left" onclick="createBiz">No</button>
+			<button  style = "float: right" onclick="createBizWithEmp">Yes</button>
+			<div style = "padding: 12% 0 0"></div>
+		</form>
+	</div>
 </div>
+</body>
+<script type="text/javascript">
+/* TODO: preliminary firebase skeleton. add new business w params: accessToken, address, business_name, email, empty employee list, phone #, personname */
+var createBiz = function() {
+	var nameOfBiz = document.getElementById("bizName");
+	var email = document.getElementById("bizName");
+	var number = document.getElementById("bizName");
+	var address = document.getElementById("bizName");
+}
 
-
-
-
- </div>
+</script>
+</html>
