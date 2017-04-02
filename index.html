@@ -29,7 +29,7 @@
     firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
-      // console.log(token);
+      console.log(token);
       // The signed-in user info.
       var user = result.user;
       //console.log(user.email);
@@ -44,12 +44,12 @@
           console.log(user.email);
           console.log(businessEmail);
           if(user.email.trim() === businessEmail.trim()) {
-            window.location.href = "/landing.html";
+            window.location.href = "/landing.html" + '#' + token;
             shouldGoToRegister = false;
           }
         }
         if(shouldGoToRegister === true) {
-          window.location.href = "/register.html";
+          window.location.href = "/register.html" + '#' + token;
         }
     });
     // ...
