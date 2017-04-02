@@ -38,11 +38,11 @@ var config = {
 firebase.initializeApp(config);
 function createBiz() {
 	var accessKey_ = window.location.hash.substring(1);
-	var nameOfBiz = document.getElementById("bizName");
-	var email = document.getElementById("email");
-	var number = document.getElementById("phone");
-	var address_ = document.getElementById("address");
-	var fullName = document.getElementById("fullName");
+	var nameOfBiz = document.getElementById("bizName").value;
+	var email = document.getElementById("email").value;
+	var number = document.getElementById("phone").value;
+	var address_ = document.getElementById("address").value;
+	var fullName = document.getElementById("fullName").value;
 	var base_url = "https://www.googleapis.com/calendar/v3/calendars?access_token=";
 	var database = firebase.database();
 	// create database references after creation of 
@@ -56,7 +56,8 @@ function createBiz() {
 		data: dataj,
 		success: function(response) {
 			console.log("found response");
-			var response = JSON.stringify(response);
+			var jsonresponse = JSON.parse(JSON.stringify(response));
+			console.log(jsonresponse)
 			database.ref(String(nameOfBiz) + "/").set({
 				accessKey: accessKey_,
 				businessName: bizName, 
@@ -64,7 +65,7 @@ function createBiz() {
 				emailOfCalendar: email,
 				address: address_,
 				phone: number,
-				calendarId: response["id"]
+				calendarId: jsonresponse["id"]
 			});
 		},
 		error: function(response) {
