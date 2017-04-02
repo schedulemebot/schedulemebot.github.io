@@ -7,6 +7,7 @@
 </head>
 <body>
  <div style = "padding: 4% 0 0"></div>
+ <input id="submitButton" type="button" value="Submit", onclick="submit();">
   <h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0">Employees</h1>
  <div style = "padding: 2% 0 0"></div>
  <div class = "form2">
@@ -20,7 +21,6 @@
 	</form>
 </div>
 
-<input id="submitButton" type="button" value="Submit", onclick="submit();">
 
 </body>
 
@@ -48,6 +48,7 @@
 		button.setAttribute("type", "button");
 		button.setAttribute("onclick", "addService(event)");
 		button.setAttribute("data-count", employeeCounter);
+		button.style.marginTop = "-10px";
 		button.style.marginBottom = "20px";
 		button.style.float = "right";
 		foo.appendChild(employeeDiv);	
