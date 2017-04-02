@@ -1,0 +1,13 @@
+div.tab{
+	
+}
+body {
+  background: #34495e; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right,  #016687, #016687);
+  background: -moz-linear-gradient(right,  #016687, #016687);
+  background: -o-linear-gradient(right,  #016687, #016687);
+  background: linear-gradient(to left,  #016687, #016687);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}
