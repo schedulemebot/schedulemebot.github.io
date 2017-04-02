@@ -41,11 +41,11 @@ function createBiz() {
 	console.log("AC KEY");
 	console.log(JSON.stringify(accessKey_));
 
-	var nameOfBiz = document.getElementById("bizName").value;
-	var email = document.getElementById("email").value;
+	var nameOfBiz = document.getElementById("bizName").value.toLowerCase();
+	var email = document.getElementById("email").value.toLowerCase();
 	var number = document.getElementById("phone").value;
-	var address_ = document.getElementById("address").value;
-	var fullName = document.getElementById("fullName").value;
+	var address_ = document.getElementById("address").value.toLowerCase();
+	var fullName = document.getElementById("fullName").value.toLowerCase();
 	var base_url = "https://www.googleapis.com/calendar/v3/calendars?access_token=";
 	var database = firebase.database();
 	// create database references after creation of 
