@@ -70,7 +70,9 @@ function createBiz() {
 			window.href.location("/dashboard.html");
 		},
 		error: function(response) {
-			console.log(response);
+			console.log("FAIL");
+			console.log(JSON.stringify(response));
+
 		}
 	});
 }
