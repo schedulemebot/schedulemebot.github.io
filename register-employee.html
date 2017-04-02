@@ -56,6 +56,7 @@
 		deleteButton.style.zIndex = 2;
 		deleteButton.setAttribute("id", "deleteButton");
 		deleteButton.setAttribute("class", "clearfix")
+		deleteButton.setAttribute("onclick", "remove()");
 		if(employeeCounter < 1){
 			employeeDiv.appendChild(deleteButton);
 		}
@@ -69,11 +70,11 @@
 		button.style.marginBottom = "20px";
 		button.style.float = "right";
 		foo.appendChild(employeeDiv);	
-		foo.appendChild(button);
+		//foo.appendChild(button);
 		employeeCounter++;
 	}
 
-	function addService(e){
+	/*function addService(e){
 		var button = e.target;
 		var employeeDiv = document.getElementById("employee"+button.getAttribute("data-count"));
 		var element = document.createElement("input");   
@@ -86,7 +87,7 @@
 
 		employeeDiv.appendChild(element);
 		remove();
-	}
+	}*/
 
 	function submit(){
 		// document.getElementById("fooBar").submit();
