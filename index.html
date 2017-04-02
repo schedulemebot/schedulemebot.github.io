@@ -18,10 +18,6 @@
   };
   firebase.initializeApp(config);
   var database = firebase.database();
-  
-  function trimString (str) {
-    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-  }
 
   function authenticate() {
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -44,13 +40,12 @@
         for (var key in firebaseDB) {
           // console.log("Key %s", key);
           var fullBusiness = firebaseDB[key];
-          var businessEmail = trimString(fullBusiness["emailOfCalendar"]);
+          var businessEmail = fullBusiness["emailOfCalendar"];
           console.log(user.email);
           console.log(businessEmail);
-          if(user.email == businessEmail) {
+          if(user.email.trim() === businessEmail.trim()) {
             window.location.href = "/landing.html";
             shouldGoToRegister = false;
-            console.log("ALSKJDHALSKJDH");
           }
         }
         if(shouldGoToRegister === true) {
