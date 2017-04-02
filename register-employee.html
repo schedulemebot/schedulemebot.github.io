@@ -18,10 +18,13 @@
 	  
 
 	</form>
-
 </div>
 
-</div>
+<input id="submitButton" type="button" value="Submit", onclick="submit();">
+
+</body>
+
+
 
 <script>
 	var employeeCounter = 0;
@@ -66,6 +69,11 @@
 		element.style.width = "92%";
 
 		employeeDiv.appendChild(element);
+	}
+
+	function submit(){
+		document.getElementById("fooBar").submit();
+		
 	}
 	
 </script>

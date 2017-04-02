@@ -1,30 +1,93 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Register Your Business</title>
-      <link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8">
+	<title>Register Your Business</title>
+	<link rel="stylesheet" href="css/style.css">
 </head>
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 <body>
- <div style = "padding: 4% 0 0"></div>
-  <h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0">Register</h1>
- <div style = "padding: 2% 0 0"></div>
- <div class = "form2">
- 	<form class = "login-form">
- 	  <input type="text" placeholder="Name of Business"/>
-      <input type="text" placeholder="Contact Email"/>
-      <input type="text" placeholder="Phone Number"/>
-	  <input type="text" placeholder="Business Address"/>
-	  <p class="message">Does your business have multiple employees who need to make sepearte appointments?</p>
-	  <div style = "padding: 7% 0 0"></div>
-	  <button style = "background: #d82f35; float: left">No</button>
-	  <button  style = "float: right">Yes</button>
-	  <div style = "padding: 12% 0 0"></div>
-
-	</form>
-
+	<div style = "padding: 4% 0 0"></div>
+	<h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0">Register</h1>
+	<div style = "padding: 2% 0 0"></div>
+	<div class = "form2">
+		<form class = "login-form">
+			<input type="text" placeholder="Your Name" id="fullName"/>
+			<input type="text" placeholder="Name of Business" id="bizName"/>
+			<input type="text" placeholder="Contact Email" id="email"/>
+			<input type="text" placeholder="Phone Number" id="phone"/>
+			<input type="text" placeholder="Business Address" id="address"/>
+			<p class="message">Does your business have multiple employees who need to make sepearte appointments?</p>
+			<div style = "padding: 7% 0 0"></div>
+			<button type="button" style = "background: #d82f35; float: left" onclick="createBiz()">No</button>
+			<button  type="button" style = "float: right" onclick="createBizWithEmp()">Yes</button>
+			<div style = "padding: 12% 0 0"></div>
+		</form>
+	</div>
 </div>
+<<<<<<< HEAD
 </div>
 
 </body>
+</body>
+<script type="text/javascript">
+/* TODO: preliminary firebase skeleton. add new business w params: accessToken, address, business_name, email, empty employee list, phone #, personname */
+var config = {
+    apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
+    authDomain: "scheduleme-f5d58.firebaseapp.com",
+    databaseURL: "https://scheduleme-f5d58.firebaseio.com",
+    storageBucket: "scheduleme-f5d58.appspot.com"
+};
+firebase.initializeApp(config);
+function createBiz() {
+	var accessKey_ = window.location.hash.substring(1);
+	console.log("AC KEY");
+	console.log(JSON.stringify(accessKey_));
+
+	var nameOfBiz = document.getElementById("bizName").value.toLowerCase();
+	var email = document.getElementById("email").value.toLowerCase();
+	var number = document.getElementById("phone").value;
+	var address_ = document.getElementById("address").value.toLowerCase();
+	var fullName = document.getElementById("fullName").value.toLowerCase();
+	var base_url = "https://www.googleapis.com/calendar/v3/calendars?access_token=";
+	var database = firebase.database();
+	// create database references after creation of 
+	// email id
+	console.log("in here");
+	var dataj = JSON.stringify({"summary" : "DefaultCalendar"});
+	$.ajax({
+		type: "POST",
+		url: base_url + accessKey_,
+		contentType: "application/json",
+		data: dataj,
+		success: function(response) {
+			console.log("found response");
+			var jsonresponse = JSON.parse(JSON.stringify(response));
+			console.log(jsonresponse);
+			database.ref(String(nameOfBiz) + "/").set({
+				accessKey: accessKey_,
+				businessName: bizName, 
+				userName: fullName,
+				emailOfCalendar: email,
+				address: address_,
+				phone: number,
+				calendarId: jsonresponse["id"]
+			});
+			// window.href.location("/dashboard.html");
+		},
+		error: function(response) {
+			console.log("FAIL");
+			console.log(JSON.stringify(response));
+
+		}
+	});
+}
+
+function createBizWithEmp() {
+	createBiz();
+	window.href.location("/");
+}
+
+</script>
 </html>
