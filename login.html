@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Schedule Me</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
+    authDomain: "scheduleme-f5d58.firebaseapp.com",
+    databaseURL: "https://scheduleme-f5d58.firebaseio.com",
+    projectId: "scheduleme-f5d58",
+    storageBucket: "scheduleme-f5d58.appspot.com",
+    messagingSenderId: "536379458427"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+
+  function authenticate() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+    provider.addScope('https://www.googleapis.com/auth/calendar');
+    provider.setCustomParameters({
+      'access_type' : 'offline'
+    });
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      console.log(token);
+      // The signed-in user info.
+      var user = result.user;
+      //console.log(user.email);
+      var shouldGoToRegister = true;
+      database.ref().once('value').then(function(snapshot) {
+        var firebaseDB = JSON.parse(JSON.stringify(snapshot));
+        //console.log(JSON.stringify(firebaseDB));
+        for (var key in firebaseDB) {
+          // console.log("Key %s", key);
+          /*
+          Reset the access key.
+          */
+          console.log(user.email.trim());
+          console.log("Emails above");
+          var fullBusiness = firebaseDB[key];
+          var businessEmail = fullBusiness["emailOfCalendar"];
+                    console.log(businessEmail.trim());
+          var businessName_ = fullBusiness["businessName"];
+          var fullName_ = fullBusiness["userName"];
+          var address_ = fullBusiness["address"];
+          var number = fullBusiness["phone"];
+          var calId = fullBusiness["calendarId"];
+          var maxLen = fullBusiness["maxLength"];
+          console.log(user.email);
+          console.log(businessEmail);
+          if(user.email.trim() === businessEmail.trim()) {
+            database.ref(String(businessName_) + "/").set({
+                      accessKey: token,
+                      businessName: businessName_, 
+                      userName: fullName_,
+                      emailOfCalendar: businessEmail,
+                      address: address_,
+                      phone: number,
+                      calendarId: calId,
+                      maxLength: maxLen
+            });
+            window.location.href = "/landingTest.html" + '#' + token;
+            shouldGoToRegister = false;
+          }
+        }
+        if(shouldGoToRegister === true) {
+          window.location.href = "/register.html" + '#' + token;
+        }
+    });
+    // ...
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorMessage);
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+    
+  });
+}
+</script>
+<body>
+  <div style = "padding: 4% 0 0"></div>
+  <h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0">Schedule Me</h1>
+  <div class="login-page">
+    <div class="form">
+      <form class="register-form">
+        <input type="text" placeholder="name"/>
+        <input type="password" placeholder="password"/>
+        <input type="text" placeholder="email address"/>
+        <button>create</button>
+        <p class="message">Already registered? <a href="#">Sign In</a></p>
+      </form>
+      <form class="login-form">
+        <input type="text" placeholder="username or email"/>
+        <input type="password" placeholder="password"/>
+        <button>login</button>
+        <p class="message">Not registered? <a href="#">Create an account</a></p>
+        <p class="message"><a herf ="#">Forgot your Passowrd?</a></p>
+      </form>
+      <button onclick="authenticate()">Google Plus</button>
+    </div>
+  </div>
+</html>
+
+

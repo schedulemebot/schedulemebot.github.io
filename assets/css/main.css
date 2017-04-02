@@ -55,7 +55,9 @@
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 	}
-
+	#deleteButton {
+ 	 background-color: #e74c3c
+	}
 /* Grid */
 
 	.row {

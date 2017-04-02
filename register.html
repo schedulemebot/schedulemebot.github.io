@@ -18,6 +18,8 @@
 			<input type="text" placeholder="Contact Email" id="email"/>
 			<input type="text" placeholder="Phone Number" id="phone"/>
 			<input type="text" placeholder="Business Address" id="address"/>
+			<input type="text" placeholder="Appointment Length (Minutes)" id="time"/>
+
 			<!-- <p class="message">Does your business have multiple employees who need to make sepearte appointments?</p> -->
 			<div style = "padding: 7% 0 0"></div>
 			<!-- <button type="button" style = "background: #d82f35; float: left" onclick="createBiz()">No</button> -->
@@ -32,6 +34,7 @@
 </body>
 <script type="text/javascript">
 /* TODO: preliminary firebase skeleton. add new business w params: accessToken, address, business_name, email, empty employee list, phone #, personname */
+var bizName = "";
 var config = {
     apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
     authDomain: "scheduleme-f5d58.firebaseapp.com",
@@ -45,12 +48,14 @@ function createBiz() {
 	console.log(JSON.stringify(accessKey_));
 
 	var nameOfBiz = document.getElementById("bizName").value.toLowerCase();
+	bizName = nameOfBiz;
 	var email = document.getElementById("email").value.toLowerCase();
 	var number = document.getElementById("phone").value;
 	var address_ = document.getElementById("address").value.toLowerCase();
 	var fullName = document.getElementById("fullName").value.toLowerCase();
 	var base_url = "https://www.googleapis.com/calendar/v3/calendars?access_token=";
 	var database = firebase.database();
+	var apptLength_ = document.getElementById("time").value.toLowerCase();
 	// create database references after creation of 
 	// email id
 	console.log("in here");
@@ -71,8 +76,10 @@ function createBiz() {
 				emailOfCalendar: email,
 				address: address_,
 				phone: number,
-				calendarId: jsonresponse["id"]
+				calendarId: jsonresponse["id"],
+				maxLength: apptLength_
 			});
+			window.location.href = "/register-employee.html" + "#" + bizName;
 			// window.href.location("/dashboard.html");
 		},
 		error: function(response) {
@@ -85,7 +92,6 @@ function createBiz() {
 
 function createBizWithEmp() {
 	createBiz();
-	window.href.location("/");
 }
 
 </script>

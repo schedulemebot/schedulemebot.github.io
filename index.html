@@ -1,94 +1,45 @@
-<!DOCTYPE html>
-<html >
-<head>
-  <meta charset="UTF-8">
-  <title>Schedule Me</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
-    authDomain: "scheduleme-f5d58.firebaseapp.com",
-    databaseURL: "https://scheduleme-f5d58.firebaseio.com",
-    projectId: "scheduleme-f5d58",
-    storageBucket: "scheduleme-f5d58.appspot.com",
-    messagingSenderId: "536379458427"
-  };
-  firebase.initializeApp(config);
-  var database = firebase.database();
+<!DOCTYPE HTML>
+<!--
+	Story by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Schedule Me</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body>
 
-  function authenticate() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/plus.login');
-    provider.addScope('https://www.googleapis.com/auth/calendar');
-    provider.setCustomParameters({
-      'access_type' : 'offline'
-    });
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
-      console.log(token);
-      // The signed-in user info.
-      var user = result.user;
-      //console.log(user.email);
-      var shouldGoToRegister = true;
-      database.ref().once('value').then(function(snapshot) {
-        var firebaseDB = JSON.parse(JSON.stringify(snapshot));
-        //console.log(JSON.stringify(firebaseDB));
-        for (var key in firebaseDB) {
-          // console.log("Key %s", key);
-          var fullBusiness = firebaseDB[key];
-          var businessEmail = fullBusiness["emailOfCalendar"];
-          console.log(user.email);
-          console.log(businessEmail);
-          if(user.email.trim() === businessEmail.trim()) {
-            window.location.href = "/landing.html" + '#' + token;
-            shouldGoToRegister = false;
-          }
-        }
-        if(shouldGoToRegister === true) {
-          window.location.href = "/register.html" + '#' + token;
-        }
-    });
-    // ...
-  }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorMessage);
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-    
-  });
-}
-</script>
-<body>
-  <div style = "padding: 4% 0 0"></div>
-  <h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0">Schedule Me</h1>
-  <div class="login-page">
-    <div class="form">
-      <form class="register-form">
-        <input type="text" placeholder="name"/>
-        <input type="password" placeholder="password"/>
-        <input type="text" placeholder="email address"/>
-        <button>create</button>
-        <p class="message">Already registered? <a href="#">Sign In</a></p>
-      </form>
-      <form class="login-form">
-        <input type="text" placeholder="username or email"/>
-        <input type="password" placeholder="password"/>
-        <button>login</button>
-        <p class="message">Not registered? <a href="#">Create an account</a></p>
-        <p class="message"><a herf ="#">Forgot your Passowrd?</a></p>
-      </form>
-      <button onclick="authenticate()">Google Plus</button>
-    </div>
-  </div>
+		<!-- Wrapper -->
+			<div id="wrapper" class="divided">
+
+				<!-- One -->
+					<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
+						<div class="content">
+							<h1>Schedule Me</h1>
+							<p class="major">The ultimate soluton to bring small businesses into the 21st century without the cost. Schedule Me is a free to use messenger bot that allows companies to find the avalibility of services and then book them all using an AI powered machine learning chat bot. Booked appointments can then be viewed on the Google Calander account linked to the website.</p>
+							<ul class="actions vertical">
+								<li><a href="login.html" class="button big wide smooth-scroll-middle">Get Started</a></li>
+							</ul>
+						</div>
+						<div class="image">
+							<img src="http://www.northsidebarber.com/uploads/3/4/0/6/34064882/5878297_orig.jpg" alt="" />
+						</div>
+					</section>
+
+				<!-- Two -->
+				
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
 </html>
-
-

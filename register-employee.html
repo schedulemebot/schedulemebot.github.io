@@ -5,31 +5,40 @@
   <title>Enter Business Info</title>
       <link rel="stylesheet" href="css/style.css">
 </head>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
 <body>
  <div style = "padding: 4% 0 0"></div>
- <h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0; float: left">Employees</h1>
+  <h1 style = "color: #FFFFFF;font-size: 44px;text-align: center; font-family: "Roboto", sans-serif;padding: 3% 0 0">Employees</h1>
  <div style = "padding: 2% 0 0"></div>
 
  <div class = "form2">
  	<form class = "login-form" id = "fooBar">
  		<div id="sectionBar">
 			<input id="add-employee-button" type="button" value="Add an employee" onclick="addEmployee();"/>
-
 		</div>
-	  
-
 	</form>
 </div>
+ <input id="submitButton" type="button" value="Submit", onclick="submit();">
 
-  <input id="submitButton" type="button" value="Submit", onclick="submit();">
 </body>
 
-
-
 <script>
-	var employeeCounter = 0;
+  var config = {
+    apiKey: "AIzaSyAV7G1bMr6mjVCRzcR4cVWaYNL5XEcrDGk",
+    authDomain: "scheduleme-f5d58.firebaseapp.com",
+    databaseURL: "https://scheduleme-f5d58.firebaseio.com",
+    projectId: "scheduleme-f5d58",
+    storageBucket: "scheduleme-f5d58.appspot.com",
+    messagingSenderId: "536379458427"
+  };
+  firebase.initializeApp(config);
+  var employeeCounter = 0;
+  var database = firebase.database();
 	function addEmployee(){
-
 		var employeeDiv = document.createElement("div");
 		employeeDiv.setAttribute("id","employee"+employeeCounter);
 
@@ -37,12 +46,20 @@
 		console.log("hi");
 		var employeeName = document.createElement("input");
 		employeeName.setAttribute("type", "text");
-		employeeName.setAttribute("id", "lname");
+		var count = '' + employeeCounter;
+		employeeName.setAttribute("id", "lname"+count);
 		employeeName.setAttribute("name", "lastname");
 		employeeName.setAttribute("placeholder", "Name");
 
+		var deleteButton = document.createElement("button");
+		deleteButton.innerHTML = "Delete All";
+		deleteButton.style.zIndex = 2;
+		deleteButton.setAttribute("id", "deleteButton");
+		deleteButton.setAttribute("class", "clearfix")
+		if(employeeCounter < 1){
+			employeeDiv.appendChild(deleteButton);
+		}
 		employeeDiv.appendChild(employeeName);
-
 		var button = document.createElement("button");
 		button.innerHTML = "Service";
 		button.setAttribute("type", "button");
@@ -53,8 +70,6 @@
 		button.style.float = "right";
 		foo.appendChild(employeeDiv);	
 		foo.appendChild(button);
-
-
 		employeeCounter++;
 	}
 
@@ -70,11 +85,38 @@
 		element.style.width = "92%";
 
 		employeeDiv.appendChild(element);
+		remove();
 	}
 
 	function submit(){
-		document.getElementById("fooBar").submit();
-		
+		// document.getElementById("fooBar").submit();
+		// var bizName = window.location.hash.substring(1);
+		// console.log($('fooBar').serializeArray());
+		// console.log("avoc");
+		// var formData = new FormData(document.querySelector('fooBar'))
+		// var array = $('form').serializeArray();
+		// var arrayOfEmployees = [array.length];
+		// for(var i=0; i<3; i++){
+		// 	arrayOfEmployees[i] = array[i]["value"];
+		// }
+		// console.log(arrayOfEmployees);
+		var bizName = window.location.hash.substring(1);
+		var database = firebase.database();
+		var arrayOfEmp = [];
+		var array = $('#fooBar').serializeArray();
+		for(i = 0; i < array.length; i++) {
+			arrayOfEmp.push(array[i]["value"]);
+		}
+		for(var a in arrayOfEmp) {
+			database.ref(String(bizName) + "/employees/" + arrayOfEmp[a]).set({
+				name: arrayOfEmp[a]
+			});
+		}
+		window.location.href = "/landingTest.html";
+	}
+
+	function remove(){
+		$("div").remove(".employee"+button.getAttribute("data-count"));
 	}
 	
 </script>
