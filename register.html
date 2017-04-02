@@ -67,6 +67,7 @@ function createBiz() {
 				phone: number,
 				calendarId: jsonresponse["id"]
 			});
+			window.href.location("/dashboard.html");
 		},
 		error: function(response) {
 			console.log(response);
